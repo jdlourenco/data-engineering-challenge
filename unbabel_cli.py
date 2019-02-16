@@ -3,7 +3,7 @@
 from processor.moving_average_processor import MovingAverageProcessor
 from processor.outlier_processor        import OutlierProcessor
 
-# from adapter.outlier_adapter        import OutlierAdapter
+from adapter.outlier_adapter        import OutlierAdapter
 from adapter.moving_average_adapter import MovingAverageAdapter
 
 from reader.json_file_reader import JsonFileReader
@@ -18,7 +18,7 @@ MODE_PROCESSORS = {
 
 MODE_ADAPTER = {
 	'moving_average': MovingAverageAdapter,
-	# 'outliers':       OutlierAdapter,
+	'outliers':       OutlierAdapter,
 }
 
 @click.command()
