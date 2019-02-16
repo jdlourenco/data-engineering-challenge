@@ -12,11 +12,9 @@ class MovingAverageAdapter(AbstractAdapter):
 		counts = self.compute_counts(data_frame)
 		sums   = self.compute_sums(data_frame)
 
-		counts_sums = sums.merge(counts, on='timestamp').to_dict('index')
+		counts_sums = sums.merge(counts, on='timestamp').reset_index().to_dict('records')
 
-		return {
-			k.to_pydatetime(): v for k, v in counts_sums.items()
-		}
+		return counts_sums
 
 	def compute_counts(self, data_frame):
 		counts = data_frame.resample('1Min').count()
