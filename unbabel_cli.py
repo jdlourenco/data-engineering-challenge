@@ -11,8 +11,6 @@ from writer.json_stdout_writer import JsonStdoutWriter
 
 import click
 
-import pdb
-
 MODE_PROCESSORS = {
 	'moving_average': MovingAverageProcessor,
 	'outliers':       OutlierProcessor,

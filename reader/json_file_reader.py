@@ -1,7 +1,6 @@
 from reader.abstract_reader import AbstractReader
 
 import pandas
-import pdb	
 
 class JsonFileReader(AbstractReader):
 
