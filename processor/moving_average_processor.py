@@ -3,8 +3,6 @@ from processor.abstract_processor import AbstractProcessor
 import collections
 import datetime
 
-import pdb
-
 class MovingAverageProcessor(AbstractProcessor):
 
 	PARAMS    = ['input_data', 'window_size', 'column', 'writer']
@@ -16,18 +14,21 @@ class MovingAverageProcessor(AbstractProcessor):
 		window = self.create_window(window_size)
 
 		current_ts = None
-		for ts, row in input_data.items():
+		for row in input_data:
 			window = self.add_to_window(window, row)
 			moving_average = self.compute_average(window)
 
-			current_ts = ts+datetime.timedelta(minutes=1)
+			current_ts = row['timestamp'] + datetime.timedelta(minutes=1)
 
 			writer.write({ 'date': current_ts, f'avg_last{window_size}m_{column}': moving_average})
 
-		# fill in empty windows within window range
-		for i in range(1, window_size):
+		# fill in empty data windows while moving average is not zero
+		while True:
 			window = self.add_to_window(window, self.EMPTY_ROW)
 			moving_average = self.compute_average(window)
+
+			if moving_average == 0:
+				break
 
 			current_ts += datetime.timedelta(minutes=1)
 
