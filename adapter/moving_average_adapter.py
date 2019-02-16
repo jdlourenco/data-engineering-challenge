@@ -1,7 +1,5 @@
 from adapter.abstract_adapter import AbstractAdapter
 
-import pdb
-
 class MovingAverageAdapter(AbstractAdapter):
 
 	PARAMS = ['data_frame', 'column']
