@@ -31,9 +31,6 @@ class TestMovingAverageProcessor():
 		assert type(stdev) == float
 		
 	def test_get_outliers(self):
-		# mean  = self.op.compute_mean(self.data, column)
-		# stdev = self.op.compute_stdev(self.data, column)
-
 		outliers = self.op.get_outliers(self.data, self.COLUMN, random.uniform(1, 30), random.uniform(1, 30))
 	
 		# get_outliers returns a list of dicts
