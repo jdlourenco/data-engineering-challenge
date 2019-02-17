@@ -1,10 +1,10 @@
 from adapter.outlier_adapter import OutlierAdapter
 from reader.json_file_reader import JsonFileReader
 
-class TestOutlierProcessor():
+class TestOutlierAdapter():
 
 	INPUT_FILE = 'events.json'
-	COLUMN     = 'duration'
+	EVENT_NAME = 'translation_delivered'
 	REQUIRED_DATA_KEYS  = [
 		'client_name',
 		'duration',
@@ -23,7 +23,7 @@ class TestOutlierProcessor():
 	def test_adapt(self):
 		params = {
 			'data_frame': self.data_frame,
-			'column':     self.COLUMN
+			'event_name': self.EVENT_NAME
 		}
 		
 		data = self.oa.adapt(params)

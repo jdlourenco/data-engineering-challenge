@@ -3,10 +3,10 @@ from reader.json_file_reader import JsonFileReader
 
 import pandas as pd
 
-class TestOutlierProcessor():
+class TestMovingAverageAdapter():
 
 	INPUT_FILE = 'events.json'
-	COLUMN     = 'duration'
+	EVENT_NAME = 'translation_delivered'
 
 	COUNTS_COLUMNS = ['count']
 	SUMS_COLUMNS   = ['sum']
@@ -24,7 +24,7 @@ class TestOutlierProcessor():
 	def test_adapt(self):
 		params = {
 			'data_frame': self.data_frame,
-			'column':	  self.COLUMN
+			'event_name': self.EVENT_NAME
 		}
 
 		data = self.maa.adapt(params)
@@ -38,7 +38,7 @@ class TestOutlierProcessor():
 			assert set(entry.keys()) == set(self.DATA_KEYS)
 
 	def test_compute_counts(self):
-		counts = self.maa.compute_counts(self.data_frame, self.COLUMN)
+		counts = self.maa.compute_counts(self.data_frame)
 
 		# compute_counts returns a pandas DataFrame with a single counts column and index timestamp
 		assert type(counts)        == pd.DataFrame
@@ -47,7 +47,7 @@ class TestOutlierProcessor():
 		assert counts.index.name   == 'timestamp'
 
 	def test_compute_sums(self):
-		sums = self.maa.compute_sums(self.data_frame, self.COLUMN)
+		sums = self.maa.compute_sums(self.data_frame)
 
 		# compute_sums returns a pandas DataFrame with a single sums column and index timestamp
 		assert type(sums)        == pd.DataFrame
