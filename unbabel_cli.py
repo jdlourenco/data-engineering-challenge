@@ -26,14 +26,17 @@ MODE_ADAPTER = {
 	"--mode", type=click.Choice(['moving_average', 'outliers']),
 	default='moving_average',
 	help='''
-		moving_average: computes for every minute the moving average over the past X minutes determined by the window_size option
-		outliers: 
+		moving_average: computes the moving average over the past N minutes aggregated in 1 minute time windows determined by the window_size option
+		outliers: uses the three-sigma rule for detecting outliers
 		[default=moving_average]
 	'''
 )
 @click.option("--input_file",  type=click.Path(exists=True),  help="Input file", required=True)
 @click.option("--window_size", type=int,  default=10,         help="Window size in minutes [default=10]")
-@click.option("--event_name",  type=click.Choice(['translation_requested', 'translation_delivered']), default='translation_delivered', help="Event name to consider")
+@click.option("--event_name",  type=click.Choice(['translation_requested', 'translation_delivered']),
+	default='translation_delivered',
+	help="Filters input data considering only rows matching event name [default=translation_delivered]"
+)
 def run(input_file, window_size, mode, event_name):
 	input_df   = read_input(input_file)
 	input_data = adapt_input(mode, input_df, event_name)
