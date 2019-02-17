@@ -20,12 +20,12 @@ class OutlierProcessor(AbstractProcessor):
 	def compute_mean(self, data, column):
 		mean = statistics.mean(map(lambda v: v[column], data))
 
-		return mean
+		return float(mean)
 
 	def compute_stdev(self, data, column):
 		std_dev = statistics.stdev(map(lambda v: v[column], data))
 
-		return std_dev
+		return float(std_dev)
 
 	def get_outliers(self, data, column, mean, std_dev):
 		three_sigma = mean + 3 * std_dev
