@@ -15,7 +15,6 @@ class TestOutlierProcessor():
 		'timestamp',
 		'translation_id'
 	]
-	
 
 	def setup_class(self):
 		self.data_frame = JsonFileReader().read(self.INPUT_FILE)
@@ -33,9 +32,8 @@ class TestOutlierProcessor():
 		assert type(data) == list
 
 		for entry in data:
-			# each entry in data is a dictionary
+			# each entry in data is a dictionary with at least all REQUIRED_DATA_KEYS keys
 			assert type(entry) == dict
 
-			# each dictionay has at least all REQUIRED_DATA_KEYS keys
 			for key in self.REQUIRED_DATA_KEYS:
 				assert key in entry.keys()
