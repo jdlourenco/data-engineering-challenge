@@ -20,37 +20,43 @@ Besides the moving average functionality it also includes an additional use case
 Clone repo:
 
 `
-git clone git@github.com:jdlourenco/data-engineering-challenge.git
+$ git clone git@github.com:jdlourenco/data-engineering-challenge.git
 `
 
 Change to `data-engineering-challenge` dir:
 
 `
-cd data-engineering-challenge
+$ cd data-engineering-challenge
 `
 
 Create virtual env:
 
 `
-python -m venv venv
+$ python -m venv venv
+`
+
+*Note:* if python3 is not your default python instead run:
+
+`
+$ python3 -m venv venv
 `
 
 Activate virtual env:
 
 `
-source venv/bin/activate
+$ source venv/bin/activate
 `
 
 Install dependencies:
 
 `
-pip install -r requirements.txt
+$ pip install -r requirements.txt
 `
 
 Run tests:
 
 `
-python -m pytest
+$ python -m pytest
 `
 
 ## Usage
@@ -62,7 +68,7 @@ A sample file containing the example presented in the [original repo](https://gi
 For a description of the CLI supported options run:
 
 ```
-python unbabel_cli.py --help 
+$ python unbabel_cli.py --help 
 Usage: unbabel_cli.py [OPTIONS]
 
 Options:
@@ -91,7 +97,7 @@ Options:
 In order to run the moving average use case on the sample input file run:
 
 ```
-python unbabel_cli.py --input_file events.json 
+$ python unbabel_cli.py --input_file events.json 
 {"date": "2018-12-26T18:16:00", "average_translation_delivered": 31.0}
 {"date": "2018-12-26T18:17:00", "average_translation_delivered": 31.0}
 {"date": "2018-12-26T18:18:00", "average_translation_delivered": 31.0}
@@ -117,7 +123,7 @@ python unbabel_cli.py --input_file events.json
 The `window_size` option can be used for setting a different moving average window, e.g. `1 minute`:
 
 ```
-python unbabel_cli.py --input_file events.json --window_size 1
+$ python unbabel_cli.py --input_file events.json --window_size 1
 {"date": "2018-12-26T18:16:00", "average_translation_delivered": 31.0}
 {"date": "2018-12-26T18:17:00", "average_translation_delivered": 0}
 {"date": "2018-12-26T18:18:00", "average_translation_delivered": 0}
@@ -134,7 +140,7 @@ python unbabel_cli.py --input_file events.json --window_size 1
 The `event_name` option can be used for computing the moving average on a different event type, e.g. `translation_requested`:
 
 ```
-python unbabel_cli.py --input_file events.json --event_name translation_requested
+$ python unbabel_cli.py --input_file events.json --event_name translation_requested
 {"date": "2018-12-26T18:12:00", "average_translation_requested": 20.0}
 {"date": "2018-12-26T18:13:00", "average_translation_requested": 20.0}
 {"date": "2018-12-26T18:14:00", "average_translation_requested": 20.0}
@@ -153,7 +159,7 @@ python unbabel_cli.py --input_file events.json --event_name translation_requeste
 
 The [generate_entries.py](generate_entries.py) script can be used for generating sample input data. It generates a file containing `N_ENTRIES` as specified by its first argument and can be used with the following command:
 
-`python generate_entries.py <N_ENTRIES>`
+`$ python generate_entries.py <N_ENTRIES>`
 
 Besides randomly generating a sample file it also generates approximatly 1% outliers in order to demo the extra outlier detection use case. In order to demonstrate the outlier functionality one can use the `generate_entries.py` script for generating a random sample input file with outliers.
 
@@ -164,7 +170,7 @@ For generating a sample file containing 20 entries run:
 This will generate a random sample file named `random_20.json`:
 
 ```
-cat random_20.json
+$ cat random_20.json
 {"timestamp": "2018-02-17 23:08:58.025150", "translation_id": "e02f0278-ac8b-4b06-88b3-61c18f991804", "source_language": "fr", "target_language": "pt", "client_name": "booking", "event_name": "translation_requested", "nr_words": 342, "duration": 2}
 {"timestamp": "2018-02-17 23:09:01.782707", "translation_id": "a4fd6b09-f840-4dff-844a-855d4890df39", "source_language": "en", "target_language": "pt", "client_name": "booking", "event_name": "translation_delivered", "nr_words": 329, "duration": 52}
 {"timestamp": "2018-02-17 23:09:03.809987", "translation_id": "cc96563d-f01d-42b9-a048-500a9e1691b0", "source_language": "pt", "target_language": "es", "client_name": "easyjet", "event_name": "translation_delivered", "nr_words": 964, "duration": 2}
@@ -208,7 +214,7 @@ The sample file described above is included in [random_20.json](random_20.json).
 
 The `mode` option can be used for selecting the `outliers` use case and apply it to the file just described:
 ```
-python unbabel_cli.py --input_file random_20.json --mode outliers
+$ python unbabel_cli.py --input_file random_20.json --mode outliers
 3sigma outlier detector on event_name='translation_delivered': mean=374.143 stdev=1295.292
 {"client_name": "easyjet", "duration": 4874, "event_name": "translation_delivered", "nr_words": 740, "source_language": "pt", "target_language": "en", "timestamp": "2018-02-17T23:10:40.951563", "translation_id": "d3f46f3e-1c34-49da-a49b-495da79efc38"}
 ```
