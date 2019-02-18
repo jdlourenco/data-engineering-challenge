@@ -202,6 +202,8 @@ By inspecting the file's content one can easily identify the last line as an out
 }
 ```
 
+The sample file described above is included in [random_20.json](random_20.json).
+
 #### Running the outliers use case
 
 The `mode` option can be used for selecting the `outliers` use case and apply it to the file just described:
